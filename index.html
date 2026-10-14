@@ -120,7 +120,7 @@
 @media print{.add-step,.remove-step{display:none!important}.section{break-inside:auto!important}.branch,.branches,.finish{break-inside:auto}.setup{grid-template-columns:repeat(5,minmax(0,1fr))!important}}
 
 /* Shared Add step control for every section and account path. */
-.add-step{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:144px;min-height:42px;margin:16px 0 24px;padding:10px 18px;border:1px solid #bdd2b6;border-radius:12px;background:#edf5e8;color:var(--green);font:600 13px/1.5 system-ui,sans-serif;box-shadow:none;cursor:pointer;transition:background .2s ease,border-color .2s ease}
+.add-step{display:inline-flex;align-self:flex-start;align-items:center;justify-content:center;gap:8px;min-width:144px;min-height:42px;margin:16px 0 24px;padding:10px 18px;border:1px solid #bdd2b6;border-radius:12px;background:#edf5e8;color:var(--green);font:600 13px/1.5 system-ui,sans-serif;box-shadow:none;cursor:pointer;transition:background .2s ease,border-color .2s ease}
 .add-step::before{content:'+';display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--green);color:white;font:500 17px/1 system-ui}
 .add-step:hover{background:#e1eedb;border-color:#83aa77}
 .add-step:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
