@@ -12,4 +12,4 @@ Open `index.html` in a browser. No build step is required.
 - Save HTML copy embeds uploaded images in the downloaded file.
 - Download PDF opens the browser print dialog; select Save as PDF.
 
-Noto Sans Khmer loads from Google Fonts when available, with local Khmer font fallbacks. Uploads are processed locally in the browser.
+Kantumruy loads from Google Fonts when available, with local Khmer font fallbacks. Uploads are processed locally in the browser.
