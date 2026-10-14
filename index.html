@@ -84,6 +84,10 @@
 #edit[aria-pressed="true"]{border-color:#b9930c;box-shadow:0 0 0 2px #ffda264d}
 @keyframes edit-gradient{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 @media(prefers-reduced-motion:reduce){#edit{animation:none;background-position:0% 50%}}
+
+/* Show each Outlook account path on its own row. */
+.branches{grid-template-columns:minmax(0,1fr)}
+@media print{.branches{grid-template-columns:minmax(0,1fr)!important}}
 </style>
 </head>
 <body>
