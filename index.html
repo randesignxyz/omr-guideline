@@ -60,6 +60,23 @@
 .editing .editable-field:focus{outline:2px solid #d5ad05;background:#ffdf2420}
 #edit[aria-pressed="true"]{background:var(--yellow);border-color:#d0ac1b}
 @media print{[contenteditable]{outline:none!important;background:transparent!important}}
+
+/* Account paths use the same card treatment as the setup steps. */
+.decision{padding:0;border:0;background:transparent;border-radius:0}
+.branches{gap:14px;align-items:stretch}
+.branch,.branch.no{display:flex;flex-direction:column;padding:20px;border:1px solid var(--line);border-radius:19px;background:white;box-shadow:0 6px 18px #214c2606;overflow:hidden}
+.branch>.card-top{margin-bottom:22px}
+.branch .branch-header,.branch.no .branch-header{padding:0 0 16px;background:transparent;border:0;align-items:flex-start}
+.branch .branch-header h3{font-size:19px}
+.branch ol{padding:0!important;flex:1}
+.branch li{padding:14px 0;gap:13px}
+.branch li p{color:var(--muted);font-size:14px;line-height:1.95}
+.branch .substep,.branch.no .substep{background:var(--lime);color:var(--green);border-radius:7px;font-weight:700}
+.branch>.visual-slot,.branch.no>.visual-slot{position:relative;right:auto;bottom:auto;width:auto;height:190px;min-height:190px;margin:20px -5px -20px;border-radius:14px 14px 0 0;background:linear-gradient(145deg,#f9fbf5,#edf5e8)}
+.branch .phone{width:112px;height:168px;transform:none;border-bottom:0;border-radius:22px 22px 0 0}
+.branch .account-art svg{color:var(--green)}
+@media(max-width:700px){.branch,.branch.no{padding:20px}.branch>.card-top{margin-bottom:15px}.branch .branch-header h3{font-size:18px}.branch li p{font-size:15px}}
+@media print{.decision{padding:0!important;border:0}.branches{gap:10px}.branch,.branch.no{padding:15px}.branch .branch-header{padding:0 0 12px}.branch .branch-header h3{font-size:16px}.branch li p{font-size:13px}.branch>.visual-slot,.branch.no>.visual-slot{display:flex!important;position:relative!important;height:145px!important;min-height:145px!important;width:auto!important;margin:12px -3px -15px}.branch>.card-top{margin-bottom:14px}.branch .phone{height:140px}}
 </style>
 </head>
 <body>
@@ -94,12 +111,12 @@
 <div class="section-head"><span class="section-no">02</span><div><h2 id="account-title">ការចូលប្រើប្រាស់គណនី AD និងជ្រើសរើសម្ហូប</h2><p>ផ្នែកទី ២ · ជំហានទី ៦</p></div></div>
 <div class="decision">
 <div class="branches">
-<article class="branch"><header class="branch-header"><div><h3>សំរាប់អ្នកមានគណនី Outlook ស្រាប់</h3><p style="font-size:13px;overflow-wrap:anywhere">ឧទាហ៏ណ <span lang="en" style="display:block">Email: dara.rith@vital.com.kh</span><span lang="en" style="display:block">Password: ********</span></p></div></header><ol>
+<article class="branch"><div class="card-top"><span class="number">06</span><svg class="icon" aria-hidden="true"><use href="#check"/></svg></div><header class="branch-header"><div><h3>សំរាប់អ្នកមានគណនី Outlook ស្រាប់</h3><p style="font-size:13px;overflow-wrap:anywhere">ឧទាហ៏ណ <span lang="en" style="display:block">Email: dara.rith@vital.com.kh</span><span lang="en" style="display:block">Password: ********</span></p></div></header><ol>
 <li><span class="substep">6A</span><p><b>ចូលប្រើប្រាស់ (Sign in)</b> ដោយប្រើគណនី AD ដែលមានស្រាប់។</p></li>
 
 <li><span class="substep">6C</span><p><b>មើលម៉ឺនុយអាហារ</b> រួចជ្រើសរើសម្ហូបដែលចង់កម្ម៉ង់ (Place Order)។</p></li>
 </ol><div class="visual-slot" role="group" aria-label="Signed in and ordering illustration"><div class="mockup" aria-hidden="true"><div class="phone"><div class="app-logo">OMR</div><svg aria-hidden="true"><use href="#check"/></svg><div class="btn">Place Order</div></div></div><button class="replace" type="button" aria-label="Replace Signed in and ordering illustration">＋ Replace image</button><input type="file" accept="image/*" hidden><span class="placeholder-caption" lang="en">Image placeholder</span></div></article>
-<article class="branch no"><header class="branch-header"><h3>សំរាប់អ្នកមិនទាន់មានគណនី Outlook</h3></header><ol>
+<article class="branch no"><div class="card-top"><span class="number">06</span><svg class="icon" aria-hidden="true"><use href="#user"/></svg></div><header class="branch-header"><h3>សំរាប់អ្នកមិនទាន់មានគណនី Outlook</h3></header><ol>
 <li><span class="substep">6A</span><p><b>ទាក់ទងបុគ្គលិកសាខា ឬក្រុមការងារទទួលបន្ទុក</b> ដើម្បីបង្កើតគណនី AD។</p></li>
 <li><span class="substep">6B</span><p>បន្ទាប់ពីបង្កើតរួច <b>សូម Sign in</b> ជាមួយគណនី AD ថ្មីរបស់អ្នក។</p></li>
 <li><span class="substep">6C</span><p><b>មើលម៉ឺនុយអាហារ</b> រួចជ្រើសរើសម្ហូបដែលចង់កម្ម៉ង់ (Place Order)។</p></li>
