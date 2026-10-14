@@ -102,6 +102,14 @@
 .branch li>.visual-slot,.branch.no li>.visual-slot{position:relative;right:auto;bottom:auto;width:auto;height:180px;min-height:180px;margin:20px -5px -20px;border-radius:14px 14px 0 0;background:linear-gradient(145deg,#f9fbf5,#edf5e8)}
 @media(max-width:700px){.branch ol,.branch.no ol{grid-template-columns:1fr}.branch,.branch.no{padding:0}.branch ol>li{padding:20px}.branch li .substep{margin-bottom:15px}}
 @media print{.branch,.branch.no{padding:0!important;break-inside:auto}.branch ol{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important}.branch.no ol{grid-template-columns:repeat(3,minmax(0,1fr))!important}.branch ol>li{padding:15px;break-inside:avoid}.branch li>.visual-slot,.branch.no li>.visual-slot{display:flex!important;position:relative!important;width:auto!important;height:145px!important;min-height:145px!important;margin:12px -3px -15px}.branch .branch-header{break-after:avoid}.branch li .substep{margin-bottom:14px}}
+
+/* Part 3 visuals use the same uploadable illustration areas as other cards. */
+.finish .card{display:grid;grid-template-columns:45px minmax(0,1fr);gap:20px;align-content:start}
+.finish .card:after{display:none}
+.finish .visual-slot{grid-column:1 / -1;height:200px;min-height:200px;margin:0 -7px -27px;align-self:end}
+.finish .phone{width:112px;height:178px}
+@media(max-width:700px){.finish .card{gap:15px}.finish .visual-slot{margin:0 -2px -22px;height:180px;min-height:180px}}
+@media print{.finish .card{display:grid!important;gap:15px}.finish .visual-slot{display:flex!important;height:145px;min-height:145px;margin:0 -5px -20px}.finish .phone{height:140px}}
 </style>
 </head>
 <body>
@@ -151,8 +159,8 @@
 <section class="section" aria-labelledby="confirm-title">
 <div class="section-head"><span class="section-no">03</span><div><h2 id="confirm-title">ពិនិត្យការបញ្ចុះតម្លៃ និងបញ្ជាក់ការកម្ម៉ង់</h2><p>ផ្នែកទី ៣ · ជំហានទី ៧ ដល់ ៨</p></div></div>
 <div class="finish">
-<article class="card"><div class="card-top"><span class="number">7</span></div><div><h3>ពិនិត្យប្រូម៉ូសិន / ការបញ្ចុះតម្លៃ រួចបញ្ជាក់កម្ម៉ង់</h3><p>ពិនិត្យមើលប្រូម៉ូសិន ឬការបញ្ចុះតម្លៃដែលមានសុពលភាព (ឧទាហរណ៍៖ <span class="discount">បញ្ចុះតម្លៃ 10% ឬ 40% សម្រាប់គ្រួសារ OML</span> ប្រសិនបើមាន) រួចចុចបញ្ជាក់ការកម្ម៉ង់ (Confirm Order)។</p></div></article>
-<article class="card success"><div class="card-top"><span class="number">8</span></div><div><div class="success-icon"><svg aria-hidden="true"><use href="#check"/></svg>ORDER SUBMITTED</div><h3>ការកម្ម៉ង់បានជោគជ័យ</h3><p>ការកម្ម៉ង់របស់អ្នកបានបញ្ចូនរួចរាល់! បុគ្គលិកនឹងរៀបចំតាមលំដាប់ និងជួយសម្រួលបន្ថែមតាមតម្រូវការរបស់អ្នក។</p></div></article>
+<article class="card"><div class="card-top"><span class="number">7</span></div><div><h3>ពិនិត្យប្រូម៉ូសិន / ការបញ្ចុះតម្លៃ រួចបញ្ជាក់កម្ម៉ង់</h3><p>ពិនិត្យមើលប្រូម៉ូសិន ឬការបញ្ចុះតម្លៃដែលមានសុពលភាព (ឧទាហរណ៍៖ <span class="discount">បញ្ចុះតម្លៃ 10% ឬ 40% សម្រាប់គ្រួសារ OML</span> ប្រសិនបើមាន) រួចចុចបញ្ជាក់ការកម្ម៉ង់ (Confirm Order)។</p></div><div class="visual-slot" role="group" aria-label="Order review illustration"><div class="mockup" aria-hidden="true"><div class="phone"><div class="app-logo">OMR</div><svg aria-hidden="true"><use href="#settings"/></svg><div class="field"></div><div class="field"></div></div></div><button class="replace" type="button" aria-label="Replace Order review illustration">＋ Replace image</button><input type="file" accept="image/*" hidden><span class="placeholder-caption" lang="en">Image placeholder</span></div></article>
+<article class="card success"><div class="card-top"><span class="number">8</span></div><div><div class="success-icon"><svg aria-hidden="true"><use href="#check"/></svg>ORDER SUBMITTED</div><h3>ការកម្ម៉ង់បានជោគជ័យ</h3><p>ការកម្ម៉ង់របស់អ្នកបានបញ្ចូនរួចរាល់! បុគ្គលិកនឹងរៀបចំតាមលំដាប់ និងជួយសម្រួលបន្ថែមតាមតម្រូវការរបស់អ្នក។</p></div><div class="visual-slot" role="group" aria-label="Order confirmation illustration"><div class="mockup" aria-hidden="true"><div class="phone"><div class="app-logo">OMR</div><svg aria-hidden="true"><use href="#check"/></svg><div class="field"></div><div class="field"></div></div></div><button class="replace" type="button" aria-label="Replace Order confirmation illustration">＋ Replace image</button><input type="file" accept="image/*" hidden><span class="placeholder-caption" lang="en">Image placeholder</span></div></article>
 </div>
 </section>
 <p class="visual-note" lang="en">Illustrations are placeholders. Replace them with your real screenshots or artwork; the QR placeholder is not scannable.</p><footer><div><strong lang="en">Download · Register · Enjoy at OMR!</strong><p>ត្រូវការជំនួយ? សាកសួរបុគ្គលិកនៅនឹងកន្លែងបានគ្រប់ពេល</p></div><p class="foot-meta"><svg aria-hidden="true"><use href="#pin"/></svg><span>វ័នម៉រ ទួលគោក &amp; វ័នម៉រ បឹងកក់</span></p></footer>
