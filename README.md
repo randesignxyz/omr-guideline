@@ -17,3 +17,7 @@ Kantumruy loads from Google Fonts when available, with local Khmer font fallback
 ## Editing text
 
 Click **Edit content**, then click any heading, paragraph, step number, label, or mockup text to change it. Click **Done editing** to preview. Use **Save HTML copy** to download a portable file with your updated text and images; edits do not automatically update GitHub. **Download PDF** exports the current content through your browser print dialog.
+
+## Adding steps
+
+Use **Add step** below Part 1, either Outlook account path, or Part 3. Each new card has editable text and an image upload. New cards have a **Remove step** control in edit mode. Save an HTML copy to preserve added cards; they are also included in PDF exports.

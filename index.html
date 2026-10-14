@@ -110,6 +110,14 @@
 .finish .phone{width:112px;height:178px}
 @media(max-width:700px){.finish .card{gap:15px}.finish .visual-slot{margin:0 -2px -22px;height:180px;min-height:180px}}
 @media print{.finish .card{display:grid!important;gap:15px}.finish .visual-slot{display:flex!important;height:145px;min-height:145px;margin:0 -5px -20px}.finish .phone{height:140px}}
+
+.add-step{display:block;margin:14px 0 22px;cursor:pointer}
+.remove-step{display:none;grid-column:1 / -1;position:relative;z-index:2;align-self:flex-start;margin-top:28px;border:1px solid #dac9c9;border-radius:15px;background:white;color:#954242;padding:6px 10px;cursor:pointer;font:12px system-ui}
+.editing .remove-step{display:block}
+.setup{grid-template-columns:repeat(5,minmax(0,1fr))}
+@media(max-width:1000px){.setup{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:700px){.setup{grid-template-columns:1fr}}
+@media print{.add-step,.remove-step{display:none!important}.section{break-inside:auto!important}.branch,.branches,.finish{break-inside:auto}.setup{grid-template-columns:repeat(5,minmax(0,1fr))!important}}
 </style>
 </head>
 <body>
@@ -166,19 +174,21 @@
 <p class="visual-note" lang="en">Illustrations are placeholders. Replace them with your real screenshots or artwork; the QR placeholder is not scannable.</p><footer><div><strong lang="en">Download · Register · Enjoy at OMR!</strong><p>ត្រូវការជំនួយ? សាកសួរបុគ្គលិកនៅនឹងកន្លែងបានគ្រប់ពេល</p></div><p class="foot-meta"><svg aria-hidden="true"><use href="#pin"/></svg><span>វ័នម៉រ ទួលគោក &amp; វ័នម៉រ បឹងកក់</span></p></footer>
 </main>
 <script>
-document.querySelectorAll('.visual-slot').forEach(slot=>{
+function bindVisual(slot){
  const input=slot.querySelector('input');
  slot.querySelector('button').onclick=()=>input.click();
  input.onchange=()=>{const file=input.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{let img=slot.querySelector('img');if(!img){img=document.createElement('img');img.alt=slot.getAttribute('aria-label');slot.append(img)}img.src=reader.result;slot.classList.add('has-image');slot.querySelector('.placeholder-caption').hidden=true;input.value=''};reader.readAsDataURL(file)};
-});
+}
+document.querySelectorAll('.visual-slot').forEach(bindVisual);
 document.getElementById('pdf').onclick=()=>window.print();
 const editButton=document.getElementById('edit');
 const editSelector='h1,h2,h3,p,.brand-name,.mark,.hero-meta,.section-no,.number,.substep,.success-icon,footer strong,.mockup small,.mockup .app-logo,.mockup .btn,.mockup .toggle,.store-list span';
-const editableFields=[...document.querySelectorAll(editSelector)].filter(el=>!el.closest('.toolbar')&&!el.parentElement.closest(editSelector));
+
 function setEditing(enabled){
  document.body.classList.toggle('editing',enabled);
  editButton.setAttribute('aria-pressed',String(enabled));
  editButton.textContent=enabled?'Done editing ✓':'Edit content ✎';
+ const editableFields=[...document.querySelectorAll(editSelector)].filter(el=>!el.closest('.toolbar')&&!el.parentElement.closest(editSelector));
  editableFields.forEach(el=>{if(enabled){el.setAttribute('contenteditable','plaintext-only');el.setAttribute('spellcheck','false')}else{el.removeAttribute('contenteditable');el.removeAttribute('spellcheck')}});
  // Use the same highlight in browsers that expose plaintext-only as the attribute value.
  document.querySelectorAll('[contenteditable="plaintext-only"]').forEach(el=>el.classList.toggle('editable-field',enabled));
@@ -187,6 +197,37 @@ function setEditing(enabled){
 editButton.onclick=()=>setEditing(editButton.getAttribute('aria-pressed')!=='true');
 // Reset editor state when reopening a saved copy, while preserving its edited text.
 setEditing(false);
+
+const stepGroups=[document.querySelector('.setup'),...document.querySelectorAll('.branch ol'),document.querySelector('.finish')];
+stepGroups.forEach((group,index)=>{
+ let add=group.nextElementSibling;
+ if(!add||!add.classList.contains('add-step')){add=document.createElement('button');add.type='button';add.className='save-preview add-step';add.textContent='＋ Add step';group.after(add)}
+ add.onclick=()=>{
+  const card=group.firstElementChild.cloneNode(true);
+  card.querySelectorAll('img,.remove-step,.next').forEach(el=>el.remove());
+  card.querySelectorAll('[contenteditable]').forEach(el=>{el.removeAttribute('contenteditable');el.classList.remove('editable-field')});
+  card.querySelectorAll('.visual-slot').forEach(slot=>{slot.classList.remove('has-image');const caption=slot.querySelector('.placeholder-caption');if(caption)caption.hidden=false;bindVisual(slot)});
+  const badge=card.querySelector('.number,.substep');
+  if(badge){const labels=[...group.children].map(el=>el.querySelector('.number,.substep')?.textContent.trim()||'');const values=labels.map(t=>Number(t.split('-').pop())).filter(Number.isFinite);const next=Math.max(0,...values)+1;badge.textContent=index===1||index===2?'6-'+next:String(next).padStart(2,'0')}
+  // Keep card structure and illustration while replacing the cloned copy's text.
+  card.querySelectorAll('h3').forEach(el=>el.textContent='ជំហានថ្មី');
+  card.querySelectorAll('p').forEach(el=>el.textContent='បញ្ចូលសេចក្តីណែនាំនៅទីនេះ។');
+  card.querySelectorAll('.success-icon').forEach(el=>el.remove());
+  card.classList.remove('success');
+  group.append(card);
+  attachRemove(card);
+  setEditing(true);
+  card.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'nearest'});
+  const field=card.querySelector('h3,p');if(field)field.focus({preventScroll:true});
+ };
+});
+function attachRemove(card){
+ let button=card.querySelector('.remove-step');
+ if(!button){button=document.createElement('button');button.type='button';button.className='remove-step';button.textContent='Remove step';card.append(button)}
+ button.onclick=()=>card.remove();
+}
+document.querySelectorAll('.remove-step').forEach(button=>attachRemove(button.parentElement));
+
 document.getElementById('save').onclick=()=>{
  const copy=document.documentElement.cloneNode(true);
  copy.querySelector('body').classList.remove('editing');
