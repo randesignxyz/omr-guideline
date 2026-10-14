@@ -13,3 +13,7 @@ Open `index.html` in a browser. No build step is required.
 - Download PDF opens the browser print dialog; select Save as PDF.
 
 Kantumruy loads from Google Fonts when available, with local Khmer font fallbacks. Uploads are processed locally in the browser.
+
+## Editing text
+
+Click **Edit content**, then click any heading, paragraph, step number, label, or mockup text to change it. Click **Done editing** to preview. Use **Save HTML copy** to download a portable file with your updated text and images; edits do not automatically update GitHub. **Download PDF** exports the current content through your browser print dialog.

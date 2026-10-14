@@ -55,6 +55,11 @@
 .hero-visual .placeholder-caption{display:none}
 @media(max-width:700px){.hero-visual{right:auto;bottom:0;width:100%;height:235px;transform:none}.hero-visual .visual-slot{height:235px;overflow:hidden}.hero-visual .mockup{margin-bottom:-50px}.hero-visual .replace{bottom:12px}}
 @media print{.hero-visual .replace{display:none!important}.hero-visual .visual-slot img{inset:0;height:100%}}
+
+.editing .editable-field{outline:1px dashed #7baa68;outline-offset:4px;border-radius:3px;cursor:text;min-width:1ch;min-height:1em}
+.editing .editable-field:focus{outline:2px solid #d5ad05;background:#ffdf2420}
+#edit[aria-pressed="true"]{background:var(--yellow);border-color:#d0ac1b}
+@media print{[contenteditable]{outline:none!important;background:transparent!important}}
 </style>
 </head>
 <body>
@@ -68,7 +73,7 @@
 <symbol id="pin" viewBox="0 0 24 24"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2"/></symbol>
 </defs></svg>
 <main>
-<div class="toolbar" lang="en"><span>Add your images, then save as PDF or HTML.</span><button type="button" class="save-preview" id="pdf">Download PDF ↓</button><button type="button" class="save-preview" id="save">Save HTML copy ↓</button></div>
+<div class="toolbar" lang="en"><span>Edit text or replace images, then save your HTML copy.</span><button type="button" class="save-preview" id="edit" aria-pressed="false">Edit content ✎</button><button type="button" class="save-preview" id="pdf">Download PDF ↓</button><button type="button" class="save-preview" id="save">Save HTML copy ↓</button></div>
 <header class="hero">
 <div class="brand"><span class="mark">OMR</span><div class="brand-name"><strong>ភោជនីយដ្ឋាន វ័នម៉រ</strong><br>One More Restaurant · OMR App</div></div>
 <h1>របៀបចុះឈ្មោះ និងកម្ម៉ង់អាហារ<br>ក្នុងកម្មវិធី OMR</h1>
@@ -117,7 +122,30 @@ document.querySelectorAll('.visual-slot').forEach(slot=>{
  input.onchange=()=>{const file=input.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{let img=slot.querySelector('img');if(!img){img=document.createElement('img');img.alt=slot.getAttribute('aria-label');slot.append(img)}img.src=reader.result;slot.classList.add('has-image');slot.querySelector('.placeholder-caption').hidden=true;input.value=''};reader.readAsDataURL(file)};
 });
 document.getElementById('pdf').onclick=()=>window.print();
-document.getElementById('save').onclick=()=>{const html='<!doctype html>\n'+document.documentElement.outerHTML;const url=URL.createObjectURL(new Blob([html],{type:'text/html;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='omr-ordering-guide.html';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
+const editButton=document.getElementById('edit');
+const editSelector='h1,h2,h3,p,.brand-name,.mark,.hero-meta,.section-no,.number,.substep,.success-icon,footer strong,.mockup small,.mockup .app-logo,.mockup .btn,.mockup .toggle,.store-list span';
+const editableFields=[...document.querySelectorAll(editSelector)].filter(el=>!el.closest('.toolbar')&&!el.parentElement.closest(editSelector));
+function setEditing(enabled){
+ document.body.classList.toggle('editing',enabled);
+ editButton.setAttribute('aria-pressed',String(enabled));
+ editButton.textContent=enabled?'Done editing ✓':'Edit content ✎';
+ editableFields.forEach(el=>{if(enabled){el.setAttribute('contenteditable','plaintext-only');el.setAttribute('spellcheck','false')}else{el.removeAttribute('contenteditable');el.removeAttribute('spellcheck')}});
+ // Use the same highlight in browsers that expose plaintext-only as the attribute value.
+ document.querySelectorAll('[contenteditable="plaintext-only"]').forEach(el=>el.classList.toggle('editable-field',enabled));
+ if(!enabled)document.querySelectorAll('.editable-field').forEach(el=>el.classList.remove('editable-field'));
+}
+editButton.onclick=()=>setEditing(editButton.getAttribute('aria-pressed')!=='true');
+// Reset editor state when reopening a saved copy, while preserving its edited text.
+setEditing(false);
+document.getElementById('save').onclick=()=>{
+ const copy=document.documentElement.cloneNode(true);
+ copy.querySelector('body').classList.remove('editing');
+ copy.querySelectorAll('[contenteditable]').forEach(el=>{el.removeAttribute('contenteditable');el.removeAttribute('spellcheck');el.classList.remove('editable-field')});
+ const button=copy.querySelector('#edit');button.setAttribute('aria-pressed','false');button.textContent='Edit content ✎';
+ const html='<!doctype html>\n'+copy.outerHTML;
+ const url=URL.createObjectURL(new Blob([html],{type:'text/html;charset=utf-8'}));
+ const a=document.createElement('a');a.href=url;a.download='omr-ordering-guide.html';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+};
 </script>
 </body>
 </html>
